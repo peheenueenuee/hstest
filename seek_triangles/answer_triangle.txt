@@ -1,0 +1,61 @@
+※これは解答用テキストファイルです。
+
+【必須】標準入力として1000を与えた場合の出力内容を記入してください。
+※記入がない場合、プログラムの実行結果が正しくても減点の対象となります。
+
+----------------------------------
+C:\Users\shirai>seek_triangles.exe
+"Type n(0 <= n <= 10000)."
+1000
+83708750
+----------------------------------
+
+※3行目はキーボードからの入力です
+
+
+【必須】使用言語・動作環境について
+(1)言語の種類を記入してください。未記入の場合、減点となります。
+Haskell
+
+
+(2)コンパイラ／インタプリタの名称・バージョン情報を記入してください。未記入の場合、減点となります。
+The Glorious Glasgow Haskell Compilation System, version 7.6.3
+
+
+【必須】プログラムの特長・工夫した点等、アピールポイントについて。
+あなたが書いたコードの内容や工夫した点をわかりやすく説明してください。未記入の場合、大幅な減点となります。
+・メインの入出力、n以下の数字の三つ組を作る関数、数字の三つ組が三角形かどうか調べる関数、
+と、わかりやすい感じに分けられたと思います。
+・Haskellを使えばこんな僕でもかっこいいプログラムが書けてすごいと思います
+
+
+【任意】もし企業からのスカウトメールがきたらどのくらい積極的にアクションすると思いますか？下記の3つから選んでお答えください。
+ A.積極的に会ってみたいと思う
+ B.社名や条件次第では会ってみたいと思う
+ C.よほどのことがない限り返信しない
+B
+
+
+【必須】あなたが書いたコードを貼り付けてください。未記入の場合は評価できません。
+コードが完全な形（そのままコンパイル・実行）できるものでない場合は程度に応じて減点の対象となります。
+
+main :: IO()
+main = do 
+	print "Type n(0 <= n <= 10000)."
+	inputValue <- getLine
+	let intValue = read inputValue :: Int
+	print $ length $ filter safeTriangleFilter (makeTriples intValue)
+
+makeTriples :: (Enum a, Num a, Ord a) => a -> [(a, a, a)]
+makeTriples n
+	| n > 0 = [(a, b, c) | c <- [1..n], a <- [1..c], b <- [1..a]]
+	| otherwise = error "too small"
+
+safeTriangleFilter :: (Num a, Ord a) => (a, a, a) -> Bool
+safeTriangleFilter (a, b, c)
+	| a + b <= c = False
+	| b + c <= a = False
+	| c + a <= b = False
+	| otherwise = True
+
+
