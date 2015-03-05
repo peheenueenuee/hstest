@@ -12,7 +12,7 @@ assortTriples n
 
 compositeTriples :: Num a => [(a, a, a)] -> [a]
 compositeTriples [] = []
-compositeTriples (a, b, c) : xs = (a * b * c) : (compositeTriples xs) 
+compositeTriples ((a, b, c) : xs) = (a * b * c) : (compositeTriples xs) 
 
 safeTriangleFilter :: (Num a, Ord a) => (a, a, a) -> Bool
 safeTriangleFilter (a, b, c)
@@ -20,6 +20,14 @@ safeTriangleFilter (a, b, c)
 	| b + c <= a = False
 	| c + a <= b = False
 	| otherwise = True
+
+quickSort :: Ord a => [a] -> [a]
+quickSort [] = []
+quickSort (x:xs) = quickSort (filter (\n -> n <= x) xs) ++ [x] ++ quickSort (filter (\n -> n >= x) xs)
+
+duplicateFilter :: Eq a => [a] -> [a]
+duplicateFilter [] = []
+duplicateFilter (x:xs) = x:(filter (\n -> n /= x) (duplicateFilter xs))
 
 eldrazi::Int -> Int
 eldrazi 1 = 1
