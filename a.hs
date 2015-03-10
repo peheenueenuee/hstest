@@ -3,7 +3,14 @@ vava = [(1,2),(3,4),(5,6)]
 pop = [1,2,3]
 inputValue = 150
 
+goisi univ = [(a, b, c) | a <- [1..univ], b <- [1..((univ + 1) `div` (a + 1))], c <- [a]]
+
 triangles = [(a, b, c) | c <- [1..inputValue], a <- [1..c], b <- [1..a]]
+
+pow :: (Enum a, Num a, Ord a) => a -> a
+pow n
+	| n <= 0 = 1
+	| otherwise = foldr (*) 1 [1..n]
 
 assortTriples :: (Enum a, Num a, Ord a) => a -> [(a, a, a)]
 assortTriples n
