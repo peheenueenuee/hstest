@@ -3,6 +3,12 @@ vava = [(1,2),(3,4),(5,6)]
 pop = [1,2,3]
 inputValue = 150
 
+deck = [1..13]
+
+endressSuck :: Char -> [Char]
+endressSuck '\128' = []
+endressSuck x = succ x : endressSuck (succ x)
+
 goisi univ = [(a, b, c) | a <- [1..univ], b <- [1..((univ + 1) `div` (a + 1))], c <- [a]]
 
 triangles = [(a, b, c) | c <- [1..inputValue], a <- [1..c], b <- [1..a]]
