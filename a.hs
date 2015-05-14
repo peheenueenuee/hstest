@@ -5,6 +5,22 @@ inputValue = 150
 
 deck = [1..13]
 
+fibonach :: Num n => n -> n -> [n]
+fibonach a b = a : (fibonach b $ a + b)
+
+fibonach_succ :: Num a => [a] -> [a]
+fibonach_succ [] = []
+fibonach_succ (x:[]) = x:[]
+fibonach_succ (x:y:xs) = (x+y):x:y:xs
+
+fibonach_list :: (Num a, Integral b) => [a] -> b -> [a]
+fibonach_list fiblist n 
+	|  n <= 0 = fiblist
+	| otherwise = fibonach_list (fibonach_succ fiblist) (n-1)
+
+fibonach_pick :: (Integral a, Num b) => a -> b
+fibonach_pick n = head $ fibonach_list [1,1] (n-2)
+
 endressSuck :: Char -> [Char]
 endressSuck '\128' = []
 endressSuck x = succ x : endressSuck (succ x)
