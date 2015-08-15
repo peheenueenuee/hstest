@@ -26,6 +26,32 @@ area :: Shape -> Float
 area (Circle _ r) = pi * r ^ 2
 area (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x1 - x2) * (abs $ y1 - y2)
 
+ackerman :: (Enum a, Integral a) => a -> a -> a
+ackerman 0 y = succ y
+ackerman x 0 = ackerman (pred x) 1
+ackerman x y = ackerman (pred x) (ackerman x (pred y))
+
+-- ackerman :: (Eq a, Num a) => a -> a -> a
+-- ackerman 0 y = y + 1
+-- ackerman x 0 = ackerman (x - 1) 1
+-- ackerman x y = ackerman (x - 1) (ackerman x (y - 1))
+
+fibonach :: Num n => n -> n -> [n]
+fibonach a b = a : (fibonach b $ a + b)
+
+fibonach_succ :: Num a => [a] -> [a]
+fibonach_succ [] = []
+fibonach_succ (x:[]) = x:[]
+fibonach_succ (x:y:xs) = (x+y):x:y:xs
+
+fibonach_list :: (Num a, Integral b) => [a] -> b -> [a]
+fibonach_list fiblist n 
+	|  n <= 0 = fiblist
+	| otherwise = fibonach_list (fibonach_succ fiblist) (n-1)
+
+fibonach_pick :: (Integral a, Num b) => a -> b
+fibonach_pick n = head $ fibonach_list [1,1] (n-2)
+
 endressSuck :: Char -> [Char]
 endressSuck '\128' = []
 endressSuck x = succ x : endressSuck (succ x)
