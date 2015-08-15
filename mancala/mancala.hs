@@ -5,9 +5,11 @@
 
 main :: IO()
 main = do
-	displayBoard
+	displayBoard smpboard smpboard
 	
-myboard = (4, 12, 3, 5, 0, 4)
+data Player = Me | Opo
+type OnesBoard = (Int, Int, Int, Int, Int, Int) 
+smpboard = (4, 12, 3, 5, 0, 4)
 
 -- game board
 --  -------------------------------
@@ -15,16 +17,17 @@ myboard = (4, 12, 3, 5, 0, 4)
 -- |                               |
 -- | ( 4) ( 4) ( 4) ( 4) ( 4) ( 4) |
 --  -------------------------------
-displayBoard :: IO()
-displayBoard = do
+displayBoard :: OnesBoard -> OnesBoard -> IO()
+displayBoard myboard opoboard = do
 	putStrLn "  ------------------------------- "
-	putStrLn $ " |" ++ (createMyBoard myboard) ++ " |" 
+	putStrLn $ " |" ++ (createMyBoard Opo opoboard) ++ " |" 
 	putStrLn " |                               |"
-	putStrLn $ " |" ++ (createMyBoard myboard) ++ " |" 
+	putStrLn $ " |" ++ (createMyBoard Me myboard) ++ " |" 
 	putStrLn "  ------------------------------- "
 
-createMyBoard :: (Integral a, Show a) => (a,a,a,a,a,a) -> [Char]
-createMyBoard (a1,a2,a3,a4,a5,a6) = concat $ map createHouse [a1,a2,a3,a4,a5,a6] 
+createMyBoard :: Player -> OnesBoard -> [Char]
+createMyBoard Me (a1,a2,a3,a4,a5,a6) = concat $ map createHouse [a1,a2,a3,a4,a5,a6] 
+createMyBoard Opo (a1,a2,a3,a4,a5,a6) = concat $ map createHouse $ reverse [a1,a2,a3,a4,a5,a6] 
 
 createHouse :: (Integral a, Show a) => a -> [Char]
 createHouse a
