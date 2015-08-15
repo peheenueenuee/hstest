@@ -1,9 +1,30 @@
 import Control.Monad
+
+primeAdd :: Num a => [a] -> [a]
+primeAdd [] = []
+primeAdd xs = (foldr (*) 1 xs + 1) : xs
+
+-- primeList :: Num a => a -> [a]
+primeList 1 = [3, 2]
+primeList n = primeAdd $ primeList (n-1)
+
+sowingBeans :: Ord a => [a] -> [a]
+sowingBeans [] = []
+sowingBeans (x : xs) = (succ x) : (sowingBeans xs)
+ 
 vava = [(1,2),(3,4),(5,6)]
 pop = [1,2,3]
 inputValue = 150
 
+data Card = LeFou | IlMago
 deck = [1..13]
+
+data Point = Point Float Float deriving (Show)
+data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
+
+area :: Shape -> Float
+area (Circle _ r) = pi * r ^ 2
+area (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x1 - x2) * (abs $ y1 - y2)
 
 endressSuck :: Char -> [Char]
 endressSuck '\128' = []
