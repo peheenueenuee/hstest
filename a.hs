@@ -6,8 +6,16 @@ inputValue = 150
 smphouses = [1,2,3,4,5,6,1,2,3,4,5]
 smphouses3 = [4,5,6,1,2,3,4,5,6,1,2]
 smphouses4 = [5,6,1,2,3,4,5,6,1,2,3]
-smpboard = ((1,2,3,4,5,6), (1,2,3,4,5,6))
+smpboard = ((1,2,3,4,5,6), (2,2,3,4,5,6))
 smpmyboard = (1,2,3,4,5,6)
+newboard = ((4,4,4,4,4,4), (4,4,4,4,4,4))
+
+
+sowing :: (Integral b) => Int -> ((b,b,b,b,b,b), (b,b,b,b,b,b)) -> ((b,b,b,b,b,b), (b,b,b,b,b,b))
+sowing n nowboard = constructBoard n $ spreadSeeds $ distructBoard n nowboard
+
+switchSide :: (Integral b) => ((b,b,b,b,b,b), (b,b,b,b,b,b)) -> ((b,b,b,b,b,b), (b,b,b,b,b,b))
+switchSide (myBoard, opoBoard) = (opoBoard, myBoard)
 
 spreadSeeds :: Integral a => [a] -> [a]
 spreadSeeds [] = []
