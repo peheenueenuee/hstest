@@ -1,4 +1,17 @@
 import Control.Monad
+
+primeAdd :: Num a => [a] -> [a]
+primeAdd [] = []
+primeAdd xs = (foldr (*) 1 xs + 1) : xs
+
+-- primeList :: Num a => a -> [a]
+primeList 1 = [3, 2]
+primeList n = primeAdd $ primeList (n-1)
+
+sowingBeans :: Ord a => [a] -> [a]
+sowingBeans [] = []
+sowingBeans (x : xs) = (succ x) : (sowingBeans xs)
+ 
 vava = [(1,2),(3,4),(5,6)]
 pop = [1,2,3]
 inputValue = 150
@@ -45,6 +58,45 @@ constructBoard a houselist = (list2taple (myhouses_head ++ (0:myhouses_tail)), l
 		myhouses_tail = take (6-a) houselist
 		myhouses_head = snd $ splitAt 6 $ snd $ splitAt (6-a) houselist
  
+data Card = LeFou | IlMago
+deck = [1..13]
+
+data Point = Point Float Float deriving (Show)
+data Shape = Circle Point Float | Rectangle Point Point deriving (Show)
+
+area :: Shape -> Float
+area (Circle _ r) = pi * r ^ 2
+area (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x1 - x2) * (abs $ y1 - y2)
+
+ackerman :: (Enum a, Integral a) => a -> a -> a
+ackerman 0 y = succ y
+ackerman x 0 = ackerman (pred x) 1
+ackerman x y = ackerman (pred x) (ackerman x (pred y))
+
+-- ackerman :: (Eq a, Num a) => a -> a -> a
+-- ackerman 0 y = y + 1
+-- ackerman x 0 = ackerman (x - 1) 1
+-- ackerman x y = ackerman (x - 1) (ackerman x (y - 1))
+
+fibonach :: Num n => n -> n -> [n]
+fibonach a b = a : (fibonach b $ a + b)
+
+fibonach_succ :: Num a => [a] -> [a]
+fibonach_succ [] = []
+fibonach_succ (x:[]) = x:[]
+fibonach_succ (x:y:xs) = (x+y):x:y:xs
+
+fibonach_list :: (Num a, Integral b) => [a] -> b -> [a]
+fibonach_list fiblist n 
+	|  n <= 0 = fiblist
+	| otherwise = fibonach_list (fibonach_succ fiblist) (n-1)
+
+fibonach_pick :: (Integral a, Num b) => a -> b
+fibonach_pick n = head $ fibonach_list [1,1] (n-2)
+
+endressSuck :: Char -> [Char]
+endressSuck '\128' = []
+endressSuck x = succ x : endressSuck (succ x)
 
 goisi :: Integral a => a -> [(a, a, a)]
 goisi 0 = []
