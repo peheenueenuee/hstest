@@ -5,12 +5,16 @@
 
 main :: IO()
 main = do
-	displayBoard smpwhole
+	displayBoard newgame
+	displayBoard $ sowing 3 newgame
+
 	
 data Player = Me | Opo
 type OnesBoard = (Int, Int, Int, Int, Int, Int) 
 type WholeBoard = (OnesBoard, OnesBoard) 
 
+newboard = (4, 4, 4, 4, 4, 4)
+newgame = (newboard, newboard)
 smpboard = (4, 12, 3, 5, 0, 4)
 smpwhole = (smpboard, smpboard)
 

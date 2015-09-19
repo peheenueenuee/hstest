@@ -1,6 +1,7 @@
 module Main where
 import System.Random.Shuffle
 import Cards
+import Hands
 import Data.List
 
 main :: IO ()

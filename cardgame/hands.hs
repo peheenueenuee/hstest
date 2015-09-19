@@ -16,3 +16,9 @@ toHand l =
 		then Just $ Hand (sort l)
 		else Nothing
 
+porkerHand :: Hand -> PorkerHand
+porkerHand = undefined
+
+data PorkerHand
+
+
