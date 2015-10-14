@@ -16,9 +16,33 @@ toHand l =
 		then Just $ Hand (sort l)
 		else Nothing
 
-porkerHand :: Hand -> PorkerHand
+porkerHand :: Hand -> (PorkerHand, Card)
 porkerHand = undefined
 
 data PorkerHand
+	= HighCard
+	| OnePair
+	| TwoPair
+	| ThreeOfAKind
+	| Straight
+	| Flush
+	| FullHouse
+	| FourOfAKind
+	| StraightFlush
+	deriving (Show, Read, Eq, Ord, Enum)
 
+twoPair :: Hand -> Maybe PorkerHand
+twoPair = undefined
 
+-- Hand decision
+straightHint :: Hand -> Maybe Card
+straightHint = undefined
+
+flushHint :: Hand -> Maybe Card
+flushHint (Hand h) = 
+	if all ((cardSuit ( head h ) ==).cardSuit) h
+	then Just (last h)
+	else Nothing
+
+nOfAKindHint :: Hand -> Maybe [[Card]]
+nOfAKindHint = undefined
