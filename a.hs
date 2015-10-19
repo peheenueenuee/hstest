@@ -5,6 +5,12 @@ inputValue = 150
 
 deck = [1..13]
 
+tet :: (Integral a, Num b, Ord b) => a -> b -> a
+tet a b
+	| b <= 0 = 1
+	| b <= 1 = a 
+	| otherwise = tet a (b-1) ^ a
+
 ackerman :: (Enum a, Integral a) => a -> a -> a
 ackerman 0 y = succ y
 ackerman x 0 = ackerman (pred x) 1
