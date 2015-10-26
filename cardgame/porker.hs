@@ -4,6 +4,7 @@ import Cards
 import Hands
 import Data.List
 import Control.Monad
+import Control.Applicative
 
 main :: IO ()
 main = do
@@ -15,8 +16,22 @@ main = do
 type DiscardList = [Card]
 type Deck = [Card]
 
-drawHand :: Deck -> DiscardList -> Hand -> Maybe Deck
-drawHand = undefined
+getHand :: Deck -> Maybe (Hand, Deck)
+getHand deck = do
+	hand <- toHand.take 5 $ deck
+	return (hand, drop 5 deck)
+
+getDiscardList :: Hand -> IO (Maybe DiscardList)
+getDiscardList = undefined
+
+drawHand :: Deck -> DiscardList -> Hand -> Maybe (Hand, Deck)
+drawHand deck dis h = let
+	nl = filter (flip notElem dis) (fromHand h)
+	nr = drop (5 - (length nl)) deck
+	in do
+		newhand <- toHand . take 5 $ nl ++ deck
+		newdeck <- return nr
+		return (newhand, newdeck)
 
 randomHand :: IO (Maybe Hand)
 randomHand = do
