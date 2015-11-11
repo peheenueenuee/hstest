@@ -21,7 +21,22 @@ main = do
 	(putStrLn "--- Bye.")
 
 playPorker :: Hand -> Deck -> IO ()
-playPorker h0 d0 = putStrLn "(porker)"
+playPorker hand deck = do
+	discards <- inputDiscards hand
+	case drawHand deck discards hand of
+		Nothing -> error "Unspecified ERROR"
+		Just (nhand, deck_) -> do
+			printHand [] hand
+			printResult $ porkerHand nhand
+
+inputDiscards :: Hand -> IO DiscardList
+inputDiscards = undefined
+
+printHand :: [a] -> Hand -> IO()
+printHand _ h = print $ fromHand h
+
+printResult :: (a, b) -> IO ()
+printResult = undefined
 
 handsTest :: IO ()
 handsTest = do
