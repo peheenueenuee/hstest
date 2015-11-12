@@ -26,17 +26,29 @@ playPorker hand deck = do
 	case drawHand deck discards hand of
 		Nothing -> error "Unspecified ERROR"
 		Just (nhand, deck_) -> do
-			printHand [] hand
+			printHand [] nhand
 			printResult $ porkerHand nhand
 
 inputDiscards :: Hand -> IO DiscardList
-inputDiscards = undefined
+inputDiscards hand = do
+	printHand [] hand
+	putStrLn "--- choose discard."
+	gotDiscard <- getDiscardList hand
+	case gotDiscard of
+		Nothing -> do
+			putStrLn "--- Prease input 1-5 digits."
+			inputDiscards hand
+		Just discards -> do
+			printHand discards hand
+			-- ynQuestion "--- OK?"
+			return discards
+			-- no: inputDiscards hand
 
 printHand :: [a] -> Hand -> IO()
 printHand _ h = print $ fromHand h
 
-printResult :: (a, b) -> IO ()
-printResult = undefined
+printResult :: (PorkerHand, b) -> IO ()
+printResult (porkerhand, _) = print porkerhand
 
 handsTest :: IO ()
 handsTest = do
